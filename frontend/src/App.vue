@@ -1,6 +1,5 @@
 <template>
   <div class="min-h-screen">
-    <!-- Navbar solo visible si el usuario está autenticado -->
     <header v-if="auth" class="bg-white shadow">
       <div class="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
         <h1 class="text-xl md:text-2xl font-bold text-primary">Gestor de Tareas</h1>
@@ -12,8 +11,6 @@
         </button>
       </div>
     </header>
-
-    <!-- Contenido principal -->
     <main class="mx-auto max-w-5xl p-4">
       <RouterView />
     </main>
@@ -28,13 +25,10 @@ import { isAuthenticated, logout } from "@/stores/auth";
 const router = useRouter();
 const route = useRoute();
 const auth = ref(isAuthenticated());
-
-// Detectar cambios de ruta o autenticación
 watch(route, () => {
   auth.value = isAuthenticated();
 });
 
-// Cerrar sesión
 function cerrarSesion() {
   logout();
   auth.value = false;

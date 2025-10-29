@@ -1,14 +1,10 @@
 <template>
   <div class="space-y-6">
-    <!-- Título -->
     <div class="flex items-center justify-between">
       <h2 class="text-3xl font-bold text-primary">Panel de Tareas</h2>
     </div>
-
-    <!-- Formulario -->
     <TaskForm @created="crear" />
 
-    <!-- Lista -->
     <div class="bg-white rounded-2xl shadow-md p-6">
       <h3 class="text-xl font-semibold mb-4">Mis Tareas</h3>
       <transition-group name="fade" tag="ul" class="space-y-3">
@@ -55,8 +51,6 @@
         Agrega una tarea
       </p>
     </div>
-
-    <!-- Modal de edición -->
     <div
       v-if="modalAbierto"
       class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
@@ -101,12 +95,8 @@ import { useRouter } from "vue-router";
 
 const tasks = ref([]);
 const router = useRouter();
-
-// Modal
 const modalAbierto = ref(false);
 const tareaEdit = ref({ id: null, titulo: "" });
-
-// Funciones principales
 async function cargar() {
   const { data } = await api.get("/tasks");
   tasks.value = data;
@@ -127,8 +117,6 @@ async function confirmarEliminar(id) {
     tasks.value = tasks.value.filter((t) => t.id !== id);
   }
 }
-
-// Modal
 function abrirModal(t) {
   tareaEdit.value = { id: t.id, titulo: t.title };
   modalAbierto.value = true;
